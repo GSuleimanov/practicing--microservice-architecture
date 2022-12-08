@@ -1,0 +1,8 @@
+twitter-filter:
+  welcome-message: Assalamu aleykum!
+  keywords:
+    - Java
+    - Kafka
+    - Spring
+    - Elasticstack
+    - Microservices
