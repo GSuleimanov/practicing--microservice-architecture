@@ -1,6 +1,6 @@
 package com.practicing_microservices.twitter_to_kafka.runner.impl;
 
-import com.practicing_microservices.twitter_to_kafka.config.AppConfig;
+import com.practicing_microservices.app_configuration.AppConfig;
 import com.practicing_microservices.twitter_to_kafka.exception.TwitterToKafkaException;
 import com.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
 import com.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
@@ -8,7 +8,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
-import twitter4j.*;
+import twitter4j.Status;
+import twitter4j.TwitterException;
+import twitter4j.TwitterObjectFactory;
 
 import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package com.practicing_microservices.twitter_to_kafka.config;
+package com.practicing_microservices.app_configuration;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
