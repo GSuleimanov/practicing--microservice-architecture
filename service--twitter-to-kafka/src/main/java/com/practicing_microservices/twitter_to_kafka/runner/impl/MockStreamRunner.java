@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
-import twitter4j.Status;
 import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 
@@ -31,7 +30,7 @@ public class MockStreamRunner implements StreamRunner {
     private final AppConfig config;
     private final TwitterKafkaStatusListener listener;
 
-    private final static int MIN_TWEET_LENGTH = 3;
+    private final static int MIN_TWEET_LENGTH = 5;
     private final static int MAX_TWEET_LENGTH = 20;
     private final static String TWITTER_STATUS_DATE_FORMAT = "EEE MMM dd HH:mm:ss zzz yyyy";
 
@@ -54,7 +53,7 @@ public class MockStreamRunner implements StreamRunner {
     @Override
     public void start() throws TwitterException {
         log.info("Twitter is mocked!");
-        int delayBetweenTweets = config.getTwitterStream().getMock().getPeriodBetweenTweets();
+        var delayBetweenTweets = config.getTwitterStream().getMock().getPeriodBetweenTweets();
         log.info("Time between tweets is set to {} ms", delayBetweenTweets);
         simulateTweeterStream(delayBetweenTweets);
     }
@@ -62,8 +61,8 @@ public class MockStreamRunner implements StreamRunner {
     private void simulateTweeterStream(int delayBetweenTweets) throws TwitterException {
         Executors.newSingleThreadExecutor().submit(() -> {
             while (true) {
-                String formattedTweetAsRawJson = substituteTweetAndGet();
-                Status status = TwitterObjectFactory.createStatus(formattedTweetAsRawJson);
+                var formattedTweetAsRawJson = substituteTweetAndGet();
+                var status = TwitterObjectFactory.createStatus(formattedTweetAsRawJson);
                 listener.onStatus(status);
                 sleep(delayBetweenTweets);
             }
@@ -79,7 +78,7 @@ public class MockStreamRunner implements StreamRunner {
     }
 
     private String substituteTweetAndGet() {
-        String[] params = new String[]{
+        var params = new String[]{
                 ZonedDateTime.now().format(DateTimeFormatter.ofPattern(TWITTER_STATUS_DATE_FORMAT, Locale.ENGLISH)),
                 String.valueOf(ThreadLocalRandom.current().nextLong(Long.MAX_VALUE)),
                 generateTweetText(),
@@ -89,10 +88,10 @@ public class MockStreamRunner implements StreamRunner {
     }
 
     private String generateTweetText() {
-        StringBuilder tweet = new StringBuilder();
+        var tweet = new StringBuilder();
+        var numberOfWordsInTweet = RANDOM.nextInt(MIN_TWEET_LENGTH, MAX_TWEET_LENGTH);
         IntConsumer appendWord = x -> tweet.append(WORDS[RANDOM.nextInt(WORDS.length)]).append(" ");
-        int numberOfWordsInTweet = RANDOM.nextInt(MIN_TWEET_LENGTH, MAX_TWEET_LENGTH);
-        IntStream.range(MIN_TWEET_LENGTH, numberOfWordsInTweet).forEach(appendWord);
-        return tweet.toString().trim();
+        IntStream.range(MIN_TWEET_LENGTH-2, numberOfWordsInTweet).forEach(appendWord);
+        return tweet.append(".").toString().trim();
     }
 }
