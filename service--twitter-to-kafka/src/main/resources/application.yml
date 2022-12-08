@@ -1,6 +1,9 @@
-twitter-filter:
-  welcome-message: Assalamu aleykum!
-  keywords:
+welcome-message: Assalamu aleykum!
+twitter-stream:
+  mock:
+    enable: true
+    period-between-tweets: 5000
+  filter-keywords:
     - Java
     - Kafka
     - Spring

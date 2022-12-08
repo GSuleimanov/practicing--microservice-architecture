@@ -1,6 +1,7 @@
 package com.practicing_microservices.twitter_to_kafka;
 
-import com.practicing_microservices.twitter_to_kafka.config.TwitterToKafkaConfig;
+import com.practicing_microservices.twitter_to_kafka.config.AppConfig;
+import com.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -11,7 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @RequiredArgsConstructor
 @SpringBootApplication
 public class TwitterToKafkaService implements CommandLineRunner {
-    final private TwitterToKafkaConfig config;
+    private final AppConfig config;
+    private final StreamRunner runner;
 
     public static void main(String[] args) {
         SpringApplication.run(TwitterToKafkaService.class, args);
@@ -21,6 +23,6 @@ public class TwitterToKafkaService implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("\uD83D\uDD30 Our application succesfully started! \uD83D\uDD30");
         log.info(config.getWelcomeMessage());
-        log.info("config = {}", config.getKeywords());
+        runner.start();
     }
 }
