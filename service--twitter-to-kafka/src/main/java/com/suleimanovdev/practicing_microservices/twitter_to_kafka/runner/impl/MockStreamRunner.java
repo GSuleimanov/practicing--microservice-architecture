@@ -1,6 +1,6 @@
 package com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.impl;
 
-import com.suleimanovdev.practicing_microservices.app_config.AppConfig;
+import com.suleimanovdev.practicing_microservices.config.app.TwitterProperties;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.exception.TwitterToKafkaException;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
-import twitter4j.TwitterException;
 import twitter4j.TwitterObjectFactory;
 
 import java.time.ZonedDateTime;
@@ -27,7 +26,7 @@ import static java.lang.String.format;
 @RequiredArgsConstructor
 @ConditionalOnExpression("${twitter-stream.mock.enable}")
 public class MockStreamRunner implements StreamRunner {
-    private final AppConfig config;
+    private final TwitterProperties twitterProps;
     private final TwitterKafkaStatusListener listener;
 
     private final static int MIN_TWEET_LENGTH = 5;
@@ -51,14 +50,14 @@ public class MockStreamRunner implements StreamRunner {
             """;
 
     @Override
-    public void start() throws TwitterException {
+    public void start() {
         log.info("Twitter is mocked!");
-        var delayBetweenTweets = config.getTwitterStream().getMock().getPeriodBetweenTweets();
-        log.info("Time between tweets is set to {} ms", delayBetweenTweets);
+        var delayBetweenTweets = twitterProps.getMock().getPeriodBetweenTweets();
+        log.info("Time between twits is set to {} ms", delayBetweenTweets);
         simulateTweeterStream(delayBetweenTweets);
     }
 
-    private void simulateTweeterStream(int delayBetweenTweets) throws TwitterException {
+    private void simulateTweeterStream(int delayBetweenTweets) {
         Executors.newSingleThreadExecutor().submit(() -> {
             while (true) {
                 var formattedTweetAsRawJson = substituteTweetAndGet();

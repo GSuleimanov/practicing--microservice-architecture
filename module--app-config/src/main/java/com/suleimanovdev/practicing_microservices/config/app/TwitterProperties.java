@@ -1,21 +1,24 @@
 package com.suleimanovdev.practicing_microservices.config.app;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Configuration;
 
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @Configuration
 @ConfigurationProperties(prefix = "twitter-stream")
-public class TwitterConfig {
+public class TwitterProperties {
     private Mock mock;
     private List<String> filterKeywords;
 
-    @Data
+    @Getter
+    @Setter
     public static class Mock {
-        private final boolean enable;
-        private final int periodBetweenTweets;
+        private boolean enable;
+        private int periodBetweenTweets;
     }
 }

@@ -1,6 +1,6 @@
 package com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.impl;
 
-import com.suleimanovdev.practicing_microservices.app_config.AppConfig;
+import com.suleimanovdev.practicing_microservices.config.app.TwitterProperties;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
 import jakarta.annotation.PreDestroy;
@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 import twitter4j.FilterQuery;
-import twitter4j.TwitterException;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
 
@@ -20,12 +19,12 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @ConditionalOnExpression("not ${twitter-stream.mock.enable}")
 public class TwitterKafkaStreamRunner implements StreamRunner {
-    final private AppConfig config;
+    final private TwitterProperties twitterProps;
     final private TwitterKafkaStatusListener listener;
     private TwitterStream stream;
 
     @Override
-    public void start() throws TwitterException {
+    public void start() {
         stream = new TwitterStreamFactory().getInstance();
         stream.addListener(listener);
         stream.filter(createFilterQuery());
@@ -40,7 +39,7 @@ public class TwitterKafkaStreamRunner implements StreamRunner {
     }
 
     public FilterQuery createFilterQuery() {
-        var kwords = config.getTwitterStream().getFilterKeywords().toArray(new String[0]);
+        var kwords = twitterProps.getFilterKeywords().toArray(new String[0]);
         log.info("Created filter from resources for next keywords: {}", (Object[]) kwords);
         return new FilterQuery(kwords);
     }
