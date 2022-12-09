@@ -15,7 +15,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
-    <groupId>com.suleimanovdev</groupId>
+    <groupId>com.suleimanovdev.practicing_microservices</groupId>
     <artifactId>microservices-arch-demo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>practicing--microservices</name>
@@ -35,7 +35,7 @@
         <dependencies>
             <!--  LOCAL  -->
             <dependency>
-                <groupId>com.suleimanovdev</groupId>
+                <groupId>com.suleimanovdev.practicing_microservices</groupId>
                 <artifactId>module--app-configuration</artifactId>
                 <version>${project.version}</version>
             </dependency>

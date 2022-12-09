@@ -21,7 +21,7 @@
         </rollingPolicy>
     </appender>
 
-    <logger name="com.practicing_microservices" level="info" additivity="false">
+    <logger name="com.suleimanovdev.practicing_microservices" level="info" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </logger>

@@ -1,8 +1,8 @@
-package com.practicing_microservices.twitter_to_kafka.runner.impl;
+package com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.impl;
 
-import com.practicing_microservices.app_configuration.AppConfig;
-import com.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
-import com.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
+import com.suleimanovdev.practicing_microservices.app_config.AppConfig;
+import com.suleimanovdev.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
+import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +41,7 @@ public class TwitterKafkaStreamRunner implements StreamRunner {
 
     public FilterQuery createFilterQuery() {
         var kwords = config.getTwitterStream().getFilterKeywords().toArray(new String[0]);
-        log.info("Created filter from resources for next keywords: {}", kwords);
+        log.info("Created filter from resources for next keywords: {}", (Object[]) kwords);
         return new FilterQuery(kwords);
     }
 }

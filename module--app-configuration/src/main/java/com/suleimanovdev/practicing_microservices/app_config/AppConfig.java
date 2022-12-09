@@ -1,4 +1,4 @@
-package com.practicing_microservices.app_configuration;
+package com.suleimanovdev.practicing_microservices.app_config;
 
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;

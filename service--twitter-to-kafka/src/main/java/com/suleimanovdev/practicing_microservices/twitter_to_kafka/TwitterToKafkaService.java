@@ -1,7 +1,7 @@
-package com.practicing_microservices.twitter_to_kafka;
+package com.suleimanovdev.practicing_microservices.twitter_to_kafka;
 
-import com.practicing_microservices.app_configuration.AppConfig;
-import com.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
+import com.suleimanovdev.practicing_microservices.app_config.AppConfig;
+import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
@@ -12,7 +12,7 @@ import org.springframework.context.annotation.ComponentScan;
 @Slf4j
 @RequiredArgsConstructor
 @SpringBootApplication
-@ComponentScan(basePackages = "com.practicing_microservices")
+@ComponentScan(basePackages = "com.suleimanovdev.practicing_microservices")
 public class TwitterToKafkaService implements CommandLineRunner {
     private final AppConfig config;
     private final StreamRunner runner;

@@ -1,4 +1,4 @@
-package com.practicing_microservices.twitter_to_kafka.listener;
+package com.suleimanovdev.practicing_microservices.twitter_to_kafka.listener;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
