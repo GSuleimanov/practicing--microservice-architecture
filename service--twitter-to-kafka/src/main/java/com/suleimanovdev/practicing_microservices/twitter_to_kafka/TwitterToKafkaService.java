@@ -1,5 +1,6 @@
 package com.suleimanovdev.practicing_microservices.twitter_to_kafka;
 
+import com.suleimanovdev.practicing_microservices.config.KafkaProperties;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

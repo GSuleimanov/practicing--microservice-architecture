@@ -1,7 +1,6 @@
 package com.suleimanovdev.practicing_microservices.kafka.admin.client;
 
-import com.suleimanovdev.practicing_microservices.config.app.KafkaProperties;
-import com.suleimanovdev.practicing_microservices.config.app.RetryProperties;
+import com.suleimanovdev.practicing_microservices.config.KafkaProperties;
 import com.suleimanovdev.practicing_microservices.kafka.admin.exception.KafkaClientException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -25,7 +24,7 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class KafkaAdminClient {
     private final KafkaProperties kafkaProps;
-    private final RetryProperties retryProps;
+    private final KafkaProperties.RetryProperties retryProps;
     private final AdminClient adminClient;
     private final RetryTemplate retryTemplate;
     private final WebClient webClient;

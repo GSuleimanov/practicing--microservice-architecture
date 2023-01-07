@@ -1,6 +1,6 @@
 package com.suleimanovdev.practicing_microservices.kafka.admin.config;
 
-import com.suleimanovdev.practicing_microservices.config.app.KafkaProperties;
+import com.suleimanovdev.practicing_microservices.config.KafkaProperties;
 import lombok.RequiredArgsConstructor;
 import org.apache.kafka.clients.CommonClientConfigs;
 import org.apache.kafka.clients.admin.AdminClient;

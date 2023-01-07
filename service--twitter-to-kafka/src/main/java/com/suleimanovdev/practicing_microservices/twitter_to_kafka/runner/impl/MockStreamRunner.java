@@ -1,6 +1,6 @@
 package com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.impl;
 
-import com.suleimanovdev.practicing_microservices.config.app.TwitterProperties;
+import com.suleimanovdev.practicing_microservices.config.TwitterProperties;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.exception.TwitterToKafkaException;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.listener.TwitterKafkaStatusListener;
 import com.suleimanovdev.practicing_microservices.twitter_to_kafka.runner.StreamRunner;
@@ -52,7 +52,7 @@ public class MockStreamRunner implements StreamRunner {
     @Override
     public void start() {
         log.info("Twitter is mocked!");
-        var delayBetweenTweets = twitterProps.getMock().getPeriodBetweenTweets();
+        var delayBetweenTweets = twitterProps.getMock().periodBetweenTweets();
         log.info("Time between twits is set to {} ms", delayBetweenTweets);
         simulateTweeterStream(delayBetweenTweets);
     }

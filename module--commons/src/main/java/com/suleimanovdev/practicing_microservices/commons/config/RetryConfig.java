@@ -1,6 +1,6 @@
 package com.suleimanovdev.practicing_microservices.commons.config;
 
-import com.suleimanovdev.practicing_microservices.config.app.RetryProperties;
+import com.suleimanovdev.practicing_microservices.config.KafkaProperties;
 import lombok.Data;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,7 +11,7 @@ import org.springframework.retry.support.RetryTemplate;
 @Data
 @Configuration
 public class RetryConfig {
-    private final RetryProperties config;
+    private final KafkaProperties.RetryProperties retryProps;
 
     @Bean
     public RetryTemplate retryTemplate() {
@@ -22,14 +22,14 @@ public class RetryConfig {
     }
 
     private SimpleRetryPolicy generateSimpleRetryPolicy() {
-        return new SimpleRetryPolicy(config.getMaxAttempts());
+        return new SimpleRetryPolicy(retryProps.maxAttempts());
     }
 
     private ExponentialBackOffPolicy generateExponentialBackOffPolicy() {
         var p = new ExponentialBackOffPolicy();
-        p.setInitialInterval(config.getInitialIntervalMs());
-        p.setMaxInterval(config.getMaxIntervalMs());
-        p.setMultiplier(config.getMultiplier());
+        p.setInitialInterval(retryProps.initialIntervalMs());
+        p.setMaxInterval(retryProps.maxIntervalMs());
+        p.setMultiplier(retryProps.multiplier());
         return p;
     }
 }

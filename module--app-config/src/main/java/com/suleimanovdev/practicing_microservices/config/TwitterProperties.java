@@ -1,4 +1,4 @@
-package com.suleimanovdev.practicing_microservices.config.app;
+package com.suleimanovdev.practicing_microservices.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -15,10 +15,5 @@ public class TwitterProperties {
     private Mock mock;
     private List<String> filterKeywords;
 
-    @Getter
-    @Setter
-    public static class Mock {
-        private boolean enable;
-        private int periodBetweenTweets;
-    }
+    public record Mock(boolean enable, int periodBetweenTweets) {}
 }
