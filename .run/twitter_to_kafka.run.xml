@@ -1,6 +1,5 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="twitter_to_kafka" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
-    <option name="ACTIVE_PROFILES" />
     <module name="service--twitter-to-kafka" />
     <option name="SPRING_BOOT_MAIN_CLASS" value="com.suleimanovdev.practicing_microservices.twitter_to_kafka.TwitterToKafkaService" />
     <method v="2">

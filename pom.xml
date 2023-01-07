@@ -4,8 +4,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>module--app-config</module>
         <module>module--commons</module>
+        <module>module--app-config</module>
         <module>module--kafka/producer</module>
         <module>module--kafka/admin</module>
         <module>module--kafka/model</module>
@@ -51,7 +51,7 @@
             <!--  LOCAL  -->
             <dependency>
                 <groupId>com.suleimanovdev.practicing_microservices</groupId>
-                <artifactId>module--app-configuration</artifactId>
+                <artifactId>module--app-config</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <dependency>
@@ -62,6 +62,16 @@
             <dependency>
                 <groupId>com.suleimanovdev.practicing_microservices</groupId>
                 <artifactId>kafka-model</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.suleimanovdev.practicing_microservices</groupId>
+                <artifactId>kafka-admin</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.suleimanovdev.practicing_microservices</groupId>
+                <artifactId>kafka-producer</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--  LOCAL  -->

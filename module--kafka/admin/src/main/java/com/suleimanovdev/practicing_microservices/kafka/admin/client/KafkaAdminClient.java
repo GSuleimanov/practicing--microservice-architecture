@@ -24,14 +24,13 @@ import java.util.concurrent.ExecutionException;
 @RequiredArgsConstructor
 public class KafkaAdminClient {
     private final KafkaProperties kafkaProps;
-    private final KafkaProperties.RetryProperties retryProps;
     private final AdminClient adminClient;
     private final RetryTemplate retryTemplate;
     private final WebClient webClient;
 
     public void createTopic() {
         try {
-            var result = retryTemplate.execute(this::doCreateTopics);
+            retryTemplate.execute(this::doCreateTopics);
         } catch (Throwable t) {
             throw new KafkaClientException("Reached max number of retries while trying to create kafka topics!");
         }
@@ -63,16 +62,16 @@ public class KafkaAdminClient {
         log.info("Reading {} topicNames, attempt {}", kafkaProps.getTopicNamesToCreate(), retryContext.getRetryCount());
         var topics = adminClient.listTopics().listings().get();
         Optional.ofNullable(topics).ifPresent(ts ->
-                ts.forEach(t -> log.info("Topic with name {}", t.name())));
+                ts.forEach(t -> log.info("✅ read topic with name {}", t.name())));
         return topics;
     }
 
     public void checkTopicCreated() {
         var topics = getTopics();
-        int retryCount = 1;
-        int multiplier = retryProps.getMultiplier().intValue();
-        Integer maxRetry = retryProps.getMaxAttempts();
-        Long sleepTimeMs = retryProps.getSleepTimeMs();
+        var retryCount = 1;
+        var multiplier = kafkaProps.getRetry().multiplier().intValue();
+        var maxRetry = kafkaProps.getRetry().maxAttempts();
+        var sleepTimeMs = kafkaProps.getRetry().sleepTimeMs();
         for (String topicName : kafkaProps.getTopicNamesToCreate())
             while (!isTopicCreated(topics, topicName)) {
                 checkMaxRetry(retryCount++, maxRetry);
@@ -83,10 +82,10 @@ public class KafkaAdminClient {
     }
 
     public void checkSchemaRegistry() {
-        int retryCount = 1;
-        int multiplier = retryProps.getMultiplier().intValue();
-        Integer maxRetry = retryProps.getMaxAttempts();
-        Long sleepTimeMs = retryProps.getSleepTimeMs();
+        var retryCount = 1;
+        var multiplier = kafkaProps.getRetry().multiplier().intValue();
+        var maxRetry = kafkaProps.getRetry().maxAttempts();
+        var sleepTimeMs = kafkaProps.getRetry().sleepTimeMs();
         while (!getSchemaRegistryStatus().is2xxSuccessful()) {
             checkMaxRetry(retryCount++, maxRetry);
             sleep(sleepTimeMs);
@@ -98,8 +97,7 @@ public class KafkaAdminClient {
         return webClient
                 .method(HttpMethod.GET)
                 .uri(kafkaProps.getSchemaRegistryUrl())
-                .retrieve()
-                .bodyToMono(HttpStatus.class)
+                .exchangeToMono(cr -> cr.bodyToMono(HttpStatus.class))
                 .block();
     }
 

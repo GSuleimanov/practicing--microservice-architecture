@@ -1,7 +1,7 @@
 twitter-stream:
   mock:
     enable: true
-    period-between-tweets: 2000
+    period-between-tweets: 5000
   filter-keywords:
     - Java
     - Kafka
@@ -18,13 +18,13 @@ kafka:
     - twitter-topic
   number-of-partitions: 3
   replication-factor: 3
-  retry-config:
+  retry:
     initial-interval-ms: 1000
     max-interval-ms: 10000
     multiplier: 2.0
     maxAttempts: 3
     sleep-time-ms: 2000
-  producer-config:
+  producer:
     key-serializer-class: org.apache.kafka.common.serialization.LongSerializer
     value-serializer-class: io.confluent.kafka.serializers.KafkaAvroSerializer
     compression-type: snappy

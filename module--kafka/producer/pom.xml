@@ -21,7 +21,7 @@
     <dependencies>
         <dependency>
             <groupId>com.suleimanovdev.practicing_microservices</groupId>
-            <artifactId>module--app-configuration</artifactId>
+            <artifactId>module--app-config</artifactId>
         </dependency>
         <dependency>
             <groupId>com.suleimanovdev.practicing_microservices</groupId>
