@@ -14,6 +14,7 @@
     <modules>
         <module>model</module>
         <module>admin</module>
+        <module>producer</module>
     </modules>
 
     <properties>
