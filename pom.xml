@@ -4,7 +4,11 @@
     <modelVersion>4.0.0</modelVersion>
 
     <modules>
-        <module>module--app-configuration</module>
+        <module>module--app-config</module>
+        <module>module--commons</module>
+        <module>module--kafka/producer</module>
+        <module>module--kafka/admin</module>
+        <module>module--kafka/model</module>
         <module>service--twitter-to-kafka</module>
     </modules>
 
@@ -29,7 +33,18 @@
         <lombok.version>1.18.24</lombok.version>
         <json.version>20220924</json.version>
         <httpclient.version>4.5.13</httpclient.version>
+        <avro.version>1.11.0</avro.version>
+        <spring-kafka.version>2.9.0</spring-kafka.version>
+        <spring-retry.version>2.0.0</spring-retry.version>
+        <kafka-avro-serializer.version>7.3.0</kafka-avro-serializer.version>
     </properties>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
 
     <dependencyManagement>
         <dependencies>
@@ -37,6 +52,16 @@
             <dependency>
                 <groupId>com.suleimanovdev.practicing_microservices</groupId>
                 <artifactId>module--app-configuration</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.suleimanovdev.practicing_microservices</groupId>
+                <artifactId>module--commons</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.suleimanovdev.practicing_microservices</groupId>
+                <artifactId>kafka-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
             <!--  LOCAL  -->
@@ -81,6 +106,54 @@
                 <groupId>org.apache.httpcomponents</groupId>
                 <artifactId>httpclient</artifactId>
                 <version>${httpclient.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro</artifactId>
+                <version>${avro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.kafka</groupId>
+                <artifactId>spring-kafka</artifactId>
+                <version>${spring-kafka.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.retry</groupId>
+                <artifactId>spring-retry</artifactId>
+                <version>${spring-retry.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-aop</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-webflux</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-avro-serializer</artifactId>
+                <version>${kafka-avro-serializer.version}}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.slf4j</groupId>
+                        <artifactId>slf4j-log4j12</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>log4j</groupId>
+                        <artifactId>log4j</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-annotations</artifactId>
+                    </exclusion>
+                    <exclusion>
+                        <groupId>io.swagger</groupId>
+                        <artifactId>swagger-core</artifactId>
+                    </exclusion>
+                </exclusions>
             </dependency>
         </dependencies>
     </dependencyManagement>
