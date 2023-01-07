@@ -42,7 +42,7 @@ public class MockStreamRunner implements StreamRunner {
 
     private static final String tweetAsRawJson = """
             {
-                "createdAt":"%s",
+                "created_at":"%s",
                 "id":%s,
                 "text":"%s",
                 "user":{"id": %s}

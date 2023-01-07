@@ -1,7 +1,7 @@
 twitter-stream:
   mock:
     enable: true
-    period-between-tweets: 5000
+    period-between-tweets: 2000
   filter-keywords:
     - Java
     - Kafka

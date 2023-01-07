@@ -9,11 +9,13 @@ import org.apache.kafka.clients.admin.CreateTopicsResult;
 import org.apache.kafka.clients.admin.NewTopic;
 import org.apache.kafka.clients.admin.TopicListing;
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.retry.RetryContext;
 import org.springframework.retry.support.RetryTemplate;
 import org.springframework.stereotype.Component;
+import org.springframework.web.reactive.function.client.ClientResponse;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -93,11 +95,12 @@ public class KafkaAdminClient {
         }
     }
 
-    private HttpStatus getSchemaRegistryStatus() {
+    private HttpStatusCode getSchemaRegistryStatus() {
         return webClient
                 .method(HttpMethod.GET)
                 .uri(kafkaProps.getSchemaRegistryUrl())
-                .exchangeToMono(cr -> cr.bodyToMono(HttpStatus.class))
+                .exchangeToMono(Mono::just)
+                .map(ClientResponse::statusCode)
                 .block();
     }
 
